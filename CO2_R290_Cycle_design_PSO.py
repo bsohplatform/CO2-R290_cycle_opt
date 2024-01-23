@@ -21,7 +21,7 @@ def Cycle_calculation(DSH_CO2, DSC_CO2, DSH_R290, DSC_R290, T_tes, CO2_dict, R29
         CO2_dict["inputs"].comp_eff = co2_comp_eff_1
         vchp_co2 = VCHP(CO2_dict["InCond"], CO2_dict["OutCond"], CO2_dict["InEvap"], CO2_dict["OutEvap"], CO2_dict["inputs"])
         (CO2_dict["InCond"], CO2_dict["OutCond"], CO2_dict["InEvap"], CO2_dict["OutEvap"], InCond_REF_co2, OutCond_REF_co2, InEvap_REF_co2, OutEvap_REF_co2, outputs_co2) = vchp_co2()
-        co2_comp_eff_2 = CO2_dict["comp"].predict([[CO2_dict["inputs"].DSC, OutEvap_REF_co2.p, InCond_REF_co2.p]])
+        co2_comp_eff_2 = CO2_dict["comp"].predict([[CO2_dict["inputs"].DSH, OutEvap_REF_co2.p, InCond_REF_co2.p]])
         co2_comp_eff_2 = float(co2_comp_eff_2)
         if abs(co2_comp_eff_1 - co2_comp_eff_2)/co2_comp_eff_2 < 1.0e-6:
             break
@@ -48,7 +48,7 @@ def Cycle_calculation(DSH_CO2, DSC_CO2, DSH_R290, DSC_R290, T_tes, CO2_dict, R29
         R290_dict["inputs"].comp_eff = r290_comp_eff_1
         vchp_r290 = VCHP(R290_dict["InCond"], R290_dict["OutCond"], R290_dict["InEvap"], R290_dict["OutEvap"], R290_dict["inputs"])
         (R290_dict["InCond"], R290_dict["OutCond"], R290_dict["InEvap"], R290_dict["OutEvap"], InCond_REF_r290, OutCond_REF_r290, InEvap_REF_r290, OutEvap_REF_r290, outputs_r290) = vchp_r290()
-        r290_comp_eff_2 = R290_dict["comp"].predict([[R290_dict["inputs"].DSC, OutEvap_REF_r290.p, InCond_REF_r290.p]])
+        r290_comp_eff_2 = R290_dict["comp"].predict([[R290_dict["inputs"].DSH, OutEvap_REF_r290.p, InCond_REF_r290.p]])
         r290_comp_eff_2 = float(r290_comp_eff_2)
         if abs(r290_comp_eff_1 - r290_comp_eff_2)/r290_comp_eff_2 < 1.0e-6:
             break
@@ -77,8 +77,9 @@ inputs_co2.cond_T_pp = 1.0
 inputs_co2.cond_dp = 0.01
 
 inputs_co2.evap_type = 'fthe'
-inputs_co2.evap_N_row = 5
-inputs_co2.evap_N_element = 20
+inputs_co2.evap_N_row = 1
+inputs_co2.evap_N_element = 10
+inputs_co2.evap_N_turn = 10
 inputs_co2.evap_T_lm = 5.0
 inputs_co2.evap_dp = 0.01
 
